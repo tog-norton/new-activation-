@@ -1,0 +1,591 @@
+/* ─── Reset & Base ───────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --norton-yellow: #febd11;
+  --norton-navy:   #002d5b;
+  /* tinggi phone: viewport dikurangi dots + padding */
+  --phone-h: min(812px, calc(100vh - 100px));
+  --phone-w: calc(var(--phone-h) * (375 / 812));
+  --phone-radius: 54px;
+  --notch-h: 34px;
+  --status-h: 44px;
+  --home-h: 36px;
+  --frame-border: 12px;
+  --frame-bg: #1a1a1a;
+  --frame-inner: #000;
+  --shadow-color: rgba(0,0,0,.55);
+}
+
+html, body {
+  height: 100%;
+  overflow: hidden;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 20px;
+  background: #0f172a;
+  color: #e2e8f0;
+  position: relative;
+}
+
+/* ─── Background blobs ────────────────────────────────────────── */
+.bg-blobs {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: .18;
+  animation: float 12s ease-in-out infinite;
+}
+.blob-1 { width: 600px; height: 600px; background: var(--norton-yellow); top: -200px; left: -200px; animation-delay: 0s; }
+.blob-2 { width: 500px; height: 500px; background: #3b82f6; bottom: -150px; right: -150px; animation-delay: 4s; }
+.blob-3 { width: 400px; height: 400px; background: var(--norton-navy); top: 40%; left: 50%; animation-delay: 8s; }
+
+@keyframes float {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33%       { transform: translate(30px, -30px) scale(1.05); }
+  66%       { transform: translate(-20px, 20px) scale(.95); }
+}
+
+
+.panel-version {
+  font-size: .72rem;
+  color: #475569;
+  margin-top: 3px;
+  letter-spacing: .3px;
+}
+
+/* ─── Phone wrapper ───────────────────────────────────────────── */
+.phone-wrapper {
+  position: relative;
+  z-index: 1;
+  flex-shrink: 0;
+  animation: phoneEntry .9s cubic-bezier(.22,1,.36,1) both;
+}
+
+@keyframes phoneEntry {
+  from { opacity: 0; transform: translateY(60px) scale(.92); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* ─── Phone Frame ─────────────────────────────────────────────── */
+.phone-frame {
+  width: var(--phone-w);
+  height: var(--phone-h);
+  background: var(--frame-bg);
+  border-radius: var(--phone-radius);
+  border: var(--frame-border) solid #2a2a2a;
+  box-shadow:
+    0 0 0 1px #333,
+    0 40px 80px -10px var(--shadow-color),
+    0 10px 30px -5px rgba(0,0,0,.4),
+    inset 0 0 0 1px rgba(255,255,255,.06);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transition: box-shadow .3s ease;
+}
+
+.phone-frame:hover {
+  box-shadow:
+    0 0 0 1px #333,
+    0 40px 80px -10px var(--shadow-color),
+    0 10px 30px -5px rgba(0,0,0,.4),
+    inset 0 0 0 1px rgba(255,255,255,.06);
+}
+
+/* ─── Notch ───────────────────────────────────────────────────── */
+.phone-notch {
+  height: var(--notch-h);
+  background: var(--frame-inner);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  flex-shrink: 0;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+  margin: 0 80px;
+}
+
+.notch-camera {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #1a1a2e;
+  border: 1px solid #333;
+}
+
+.notch-speaker {
+  width: 60px;
+  height: 6px;
+  border-radius: 3px;
+  background: #111;
+  border: 1px solid #2a2a2a;
+}
+
+/* ─── Status Bar ──────────────────────────────────────────────── */
+.phone-status-bar {
+  height: var(--status-h);
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  flex-shrink: 0;
+}
+
+.status-time {
+  font-size: 15px;
+  font-weight: 600;
+  color: #111;
+}
+
+.status-icons {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #111;
+}
+
+/* ─── Screen ──────────────────────────────────────────────────── */
+.phone-screen {
+  flex: 1;
+  background: #fff;
+  position: relative;
+  overflow: hidden;
+  min-height: 0; /* penting agar flex child tidak meluap */
+}
+
+#phone-iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  display: block;
+  overflow-y: auto;
+}
+
+/* ─── Transition overlay ──────────────────────────────────────── */
+.screen-overlay {
+  position: absolute;
+  inset: 0;
+  background: #fff;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .25s ease;
+  z-index: 10;
+}
+
+.screen-overlay.flash-in  { opacity: 1; pointer-events: all; }
+.screen-overlay.flash-out { opacity: 0; pointer-events: none; }
+
+/* ─── Home indicator ──────────────────────────────────────────── */
+.phone-home-indicator {
+  height: var(--home-h);
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.home-bar {
+  width: 130px;
+  height: 5px;
+  background: #1a1a1a;
+  border-radius: 3px;
+  opacity: .3;
+}
+
+/* ─── Side buttons ────────────────────────────────────────────── */
+.phone-buttons-left,
+.phone-buttons-right {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding-top: 120px;
+  gap: 12px;
+}
+
+.phone-buttons-left { left: calc(-1 * var(--frame-border) - 4px); }
+.phone-buttons-right { right: calc(-1 * var(--frame-border) - 4px); }
+
+.phone-btn {
+  width: 4px;
+  border-radius: 2px;
+  background: #2a2a2a;
+  box-shadow: -1px 0 0 #111;
+}
+
+.btn-volume-up,
+.btn-volume-down { height: 44px; }
+.btn-power { height: 72px; }
+
+/* ─── Step indicator ──────────────────────────────────────────── */
+.step-indicator {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 20px;
+  flex-shrink: 0;
+}
+
+.step-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #334155;
+  border: 2px solid #475569;
+  cursor: pointer;
+  transition: all .3s ease;
+  position: relative;
+}
+
+.step-dot::after {
+  content: attr(title);
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: #1e293b;
+  color: #e2e8f0;
+  font-size: 11px;
+  white-space: nowrap;
+  padding: 4px 8px;
+  border-radius: 6px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .2s ease;
+  border: 1px solid #334155;
+}
+
+.step-dot:hover::after { opacity: 1; }
+
+.step-dot.active {
+  width: 28px;
+  border-radius: 5px;
+  background: var(--norton-yellow);
+  border-color: var(--norton-yellow);
+  box-shadow: 0 0 12px rgba(254,189,17,.5);
+}
+
+/* ─── Panel Trigger Button ────────────────────────────────────── */
+.panel-trigger {
+  position: fixed;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 200;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(255,255,255,.08);
+  border: 1px solid rgba(255,255,255,.14);
+  color: #94a3b8;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition: background .2s, color .2s, transform .2s;
+  animation: phoneEntry .9s .1s cubic-bezier(.22,1,.36,1) both;
+}
+
+.panel-trigger:hover {
+  background: rgba(254,189,17,.15);
+  border-color: rgba(254,189,17,.35);
+  color: #febd11;
+  transform: translateY(-50%) scale(1.08);
+}
+
+/* ─── Side Panel ──────────────────────────────────────────────── */
+.side-panel {
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 320px;
+  max-width: 88vw;
+  background: #0f172a;
+  border-right: 1px solid rgba(255,255,255,.08);
+  z-index: 300;
+  display: flex;
+  flex-direction: column;
+  transform: translateX(-100%);
+  transition: transform .35s cubic-bezier(.22,1,.36,1);
+  box-shadow: 4px 0 40px rgba(0,0,0,.5);
+}
+
+.side-panel.open {
+  transform: translateX(0);
+}
+
+/* Panel header — sticky agar tombol tutup selalu visible */
+.panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 20px 16px;
+  border-bottom: 1px solid rgba(255,255,255,.07);
+  flex-shrink: 0;
+  position: sticky;
+  top: 0;
+  background: #0f172a;
+  z-index: 10;
+}
+
+.panel-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 15px;
+  font-weight: 700;
+  color: #f1f5f9;
+  letter-spacing: -.2px;
+}
+
+.panel-close {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #64748b;
+  padding: 4px;
+  border-radius: 6px;
+  display: flex;
+  transition: color .15s, background .15s;
+}
+
+.panel-close:hover { color: #f1f5f9; background: rgba(255,255,255,.06); }
+
+/* Panel body — scrollable */
+.panel-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px 16px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.panel-body::-webkit-scrollbar { width: 4px; }
+.panel-body::-webkit-scrollbar-track { background: transparent; }
+.panel-body::-webkit-scrollbar-thumb { background: rgba(255,255,255,.1); border-radius: 2px; }
+
+/* Case card */
+.case-card {
+  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(255,255,255,.07);
+  border-radius: 16px;
+  padding: 18px 16px;
+}
+
+.case-badge {
+  display: inline-flex;
+  align-items: center;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .6px;
+  text-transform: uppercase;
+  padding: 3px 10px;
+  border-radius: 20px;
+  margin-bottom: 10px;
+}
+
+.case-badge.new {
+  background: rgba(254,189,17,.15);
+  color: #febd11;
+  border: 1px solid rgba(254,189,17,.25);
+}
+
+.case-badge.active {
+  background: rgba(34,197,94,.12);
+  color: #4ade80;
+  border: 1px solid rgba(34,197,94,.2);
+}
+
+.case-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: #f1f5f9;
+  margin-bottom: 8px;
+  line-height: 1.4;
+}
+
+.case-desc {
+  font-size: 12px;
+  color: #94a3b8;
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+
+/* Steps list */
+.case-steps {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.case-steps li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.step-num {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: rgba(254,189,17,.15);
+  border: 1px solid rgba(254,189,17,.3);
+  color: #febd11;
+  font-size: 11px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.case-steps li div strong {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  color: #e2e8f0;
+  margin-bottom: 2px;
+}
+
+.case-steps li div p {
+  font-size: 11.5px;
+  color: #64748b;
+  line-height: 1.5;
+}
+
+/* Tip box */
+.case-tip {
+  display: flex;
+  align-items: flex-start;
+  gap: 7px;
+  background: rgba(254,189,17,.07);
+  border: 1px solid rgba(254,189,17,.15);
+  border-radius: 8px;
+  padding: 9px 12px;
+  font-size: 11px;
+  color: #fde68a;
+  line-height: 1.5;
+}
+
+.case-tip svg { flex-shrink: 0; margin-top: 1px; stroke: #fde68a; }
+
+.case-tip.active-tip {
+  background: rgba(34,197,94,.06);
+  border-color: rgba(34,197,94,.15);
+  color: #86efac;
+}
+
+.case-tip.active-tip svg { stroke: #86efac; }
+
+/* Divider between cards */
+.case-divider {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 4px;
+}
+
+.case-divider::before,
+.case-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: rgba(255,255,255,.07);
+}
+
+.case-divider span {
+  font-size: 11px;
+  color: #475569;
+  text-transform: uppercase;
+  letter-spacing: .5px;
+}
+
+/* ─── Panel Backdrop ──────────────────────────────────────────── */
+.panel-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.5);
+  z-index: 250;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .35s ease;
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+}
+
+.panel-backdrop.open {
+  opacity: 1;
+  pointer-events: all;
+}
+
+/* ─── Responsive ──────────────────────────────────────────────── */
+@media (max-width: 500px) {
+  :root {
+    --phone-h: min(700px, calc(100vh - 70px));
+    --phone-radius: 40px;
+    --frame-border: 8px;
+  }
+
+  body {
+    padding: 12px 0;
+    justify-content: center;
+  }
+
+  .phone-wrapper { flex-shrink: 0; }
+
+  .step-indicator { margin-top: 12px; }
+
+  /* Trigger: geser ke kiri bawah agar tidak mengganggu iPhone */
+  .panel-trigger {
+    left: 12px;
+    bottom: 20px;
+    top: auto;
+    transform: none;
+  }
+
+  .panel-trigger:hover { transform: scale(1.08); }
+
+  /* Panel: full width di mobile */
+  .side-panel {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  /* Close button di mobile lebih besar dan sticky */
+  .panel-close {
+    padding: 8px;
+    background: rgba(255,255,255,.06);
+    border-radius: 8px;
+  }
+}

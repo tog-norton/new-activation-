@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="id"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Norton Active Status with Login</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#febd11", 
+                        "norton-yellow": "#febd11",
+                        "norton-navy": "#002d5b",
+                        "background-light": "#ffffff",
+                        "background-dark": "#111111",
+                        "active-green-light": "#dcfce7",
+                        "active-green-text": "#166534",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "2xl": "1rem", "full": "9999px"},
+                    animation: {
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            min-height: max(884px, 100dvh);::selection {
+                background-color: #002d5b;
+                color: #febd11;
+            }
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light font-display text-slate-900 antialiased">
+<nav class="sticky top-0 z-50 bg-white border-b border-slate-100 px-6 py-4 flex items-center justify-between">
+<div class="flex items-center gap-2">
+<div class="bg-norton-yellow text-black rounded-full p-1 w-8 h-8 flex items-center justify-center">
+<span class="material-symbols-outlined text-[20px] font-bold">check</span>
+</div>
+<span class="text-xl font-bold tracking-tight text-slate-900">Norton</span>
+</div>
+<button class="text-norton-navy hover:bg-slate-50 p-2 rounded-full transition-colors">
+<span class="material-symbols-outlined">help</span>
+</button>
+</nav>
+<div class="bg-active-green-light border-b border-green-200 px-6 py-3 flex items-center justify-center text-center">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-active-green-text text-lg filled variation-settings:-'FILL' 1">check_circle</span>
+<div class="text-sm font-medium text-active-green-text">
+            Langganan Aktif <span class="mx-1 opacity-60">|</span> <span class="text-xs font-normal opacity-90">Berakhir pada: 12 Des 2025</span>
+</div>
+</div>
+</div>
+<main class="max-w-md mx-auto px-5 py-6 flex flex-col items-center pb-20">
+<div class="w-full mb-6 flex flex-col items-center">
+<div class="relative flex items-center justify-center mb-6">
+<div class="absolute w-48 h-48 bg-green-50 rounded-full animate-pulse-slow opacity-70"></div>
+<div class="absolute w-36 h-36 bg-green-100 rounded-full animate-pulse opacity-60"></div>
+<div class="relative bg-white border-4 border-green-500 rounded-full w-28 h-28 flex items-center justify-center shadow-sm z-10">
+<span class="material-symbols-outlined text-green-600 text-5xl filled variation-settings:-'FILL' 1">shield</span>
+</div>
+<div class="absolute -bottom-3 z-20 bg-norton-navy text-white text-xs font-bold px-3 py-1 rounded-full shadow-md flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">verified</span>
+                    AMAN
+                </div>
+</div>
+<h1 class="text-2xl font-bold text-center text-slate-900 mb-2">Perangkat Terlindungi</h1>
+<p class="text-center text-slate-500 max-w-xs mx-auto text-sm leading-relaxed">
+                Perlindungan Anda aktif dan berjalan dengan optimal. Perangkat Anda aman dari ancaman.
+            </p>
+</div>
+<div class="w-full grid gap-4 mb-8">
+<div class="bg-white border border-slate-100 rounded-2xl p-4 shadow-sm flex items-center gap-4 hover:shadow-md transition-shadow">
+<div class="bg-green-50 text-green-700 p-3 rounded-xl flex-shrink-0">
+<span class="material-symbols-outlined">security</span>
+</div>
+<div>
+<h3 class="font-bold text-slate-900 text-sm mb-0.5">Perlindungan Real-time</h3>
+<p class="text-xs text-slate-500">Aktif memantau ancaman.</p>
+</div>
+<div class="ml-auto">
+<span class="material-symbols-outlined text-green-600 text-[20px]">check_circle</span>
+</div>
+</div>
+<div class="bg-white border border-slate-100 rounded-2xl p-4 shadow-sm flex items-center gap-4 hover:shadow-md transition-shadow">
+<div class="bg-green-50 text-green-700 p-3 rounded-xl flex-shrink-0">
+<span class="material-symbols-outlined">vpn_lock</span>
+</div>
+<div>
+<h3 class="font-bold text-slate-900 text-sm mb-0.5">VPN Aman</h3>
+<p class="text-xs text-slate-500">Koneksi internet Anda terenkripsi.</p>
+</div>
+<div class="ml-auto">
+<span class="material-symbols-outlined text-green-600 text-[20px]">check_circle</span>
+</div>
+</div>
+<div class="bg-white border border-slate-100 rounded-2xl p-4 shadow-sm flex items-center gap-4 hover:shadow-md transition-shadow">
+<div class="bg-green-50 text-green-700 p-3 rounded-xl flex-shrink-0">
+<span class="material-symbols-outlined">phonelink_lock</span>
+</div>
+<div>
+<h3 class="font-bold text-slate-900 text-sm mb-0.5">Anti-Pencurian</h3>
+<p class="text-xs text-slate-500">Fitur pelacakan siap digunakan.</p>
+</div>
+<div class="ml-auto">
+<span class="material-symbols-outlined text-green-600 text-[20px]">check_circle</span>
+</div>
+</div>
+</div>
+<div class="w-full mt-auto">
+<button class="w-full bg-norton-yellow hover:bg-[#ffcd42] active:bg-[#e6ab0f] text-norton-navy font-bold text-lg py-4 px-6 rounded-full shadow-lg shadow-yellow-500/10 transition-all transform active:scale-[0.98] flex items-center justify-center gap-2 mb-4">
+                Masuk
+                <span class="material-symbols-outlined font-semibold">login</span>
+</button>
+<p class="text-center text-[11px] text-slate-500 leading-tight px-4">
+                Masuk ke akun Anda untuk mengelola semua fitur keamanan dan langganan di satu tempat.
+            </p>
+</div>
+</main>
+</body></html>

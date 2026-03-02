@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Norton – Buat Akun</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Roboto', -apple-system, sans-serif;
+      background: #f9fafb;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    /* Browser bar */
+    .browser-bar {
+      background: #fff;
+      border-bottom: 1px solid #e5e7eb;
+      padding: 10px 14px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-shrink: 0;
+    }
+
+    .browser-actions {
+      display: flex;
+      gap: 14px;
+      align-items: center;
+    }
+
+    .browser-actions button {
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: #6b7280;
+      padding: 2px;
+      display: flex;
+      align-items: center;
+    }
+
+    .browser-actions svg { width: 20px; height: 20px; }
+
+    .browser-url {
+      flex: 1;
+      background: #f3f4f6;
+      border-radius: 20px;
+      padding: 6px 14px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .url-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #9ca3af;
+      flex-shrink: 0;
+    }
+
+    .url-text {
+      font-size: 12px;
+      color: #6b7280;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* Content */
+    .content {
+      flex: 1;
+      overflow-y: auto;
+      padding: 28px 20px 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* Logo */
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 28px;
+    }
+
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+    }
+
+    .logo-text {
+      font-size: 22px;
+      font-weight: 700;
+      color: #111827;
+      letter-spacing: -.3px;
+    }
+
+    /* Card */
+    .form-card {
+      width: 100%;
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      border-radius: 24px;
+      padding: 24px 20px;
+      box-shadow: 0 1px 6px rgba(0,0,0,.06);
+      margin-bottom: 20px;
+      animation: fadeUp .4s cubic-bezier(.22,1,.36,1) both;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .form-card h1 {
+      font-size: 22px;
+      font-weight: 700;
+      color: #111827;
+      margin-bottom: 24px;
+    }
+
+    /* Input groups */
+    .field {
+      margin-bottom: 22px;
+      position: relative;
+    }
+
+    .field label {
+      display: block;
+      font-size: 11px;
+      color: #6b7280;
+      margin-bottom: 4px;
+    }
+
+    .field input,
+    .field select {
+      width: 100%;
+      border: none;
+      border-bottom: 1px solid #d1d5db;
+      border-radius: 0;
+      background: transparent;
+      font-size: 15px;
+      padding: 6px 0;
+      outline: none;
+      color: #111827;
+      transition: border-color .2s;
+      -webkit-appearance: none;
+    }
+
+    .field input:focus,
+    .field select:focus { border-bottom-color: #f59e0b; }
+
+    .field-row {
+      position: relative;
+    }
+
+    .eye-btn {
+      position: absolute;
+      right: 0;
+      bottom: 6px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: #9ca3af;
+      padding: 0;
+      display: flex;
+    }
+
+    .eye-btn svg { width: 20px; height: 20px; }
+
+    .select-wrap {
+      position: relative;
+    }
+
+    .select-wrap select { padding-right: 24px; cursor: pointer; }
+
+    .select-arrow {
+      position: absolute;
+      right: 0;
+      bottom: 8px;
+      pointer-events: none;
+      color: #9ca3af;
+    }
+
+    .select-arrow svg { width: 16px; height: 16px; }
+
+    /* Error messages */
+    .field-error {
+      font-size: 11px;
+      color: #dc2626;
+      margin-top: 4px;
+      display: none;
+    }
+
+    .field.has-error input,
+    .field.has-error select { border-bottom-color: #dc2626; }
+    .field.has-error .field-error { display: block; }
+
+    /* Submit button */
+    .submit-btn {
+      width: 100%;
+      padding: 12px;
+      border-radius: 9999px;
+      border: none;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background .2s, color .2s, transform .15s;
+      background: #f3f4f6;
+      color: #9ca3af;
+    }
+
+    .submit-btn.enabled {
+      background: #febd11;
+      color: #000;
+      box-shadow: 0 4px 16px rgba(254,189,17,.3);
+    }
+
+    .submit-btn.enabled:hover { background: #e6ac00; }
+    .submit-btn.enabled:active { transform: scale(.97); }
+
+    /* Divider */
+    .divider {
+      position: relative;
+      text-align: center;
+      margin: 24px 0 20px;
+    }
+
+    .divider::before {
+      content: '';
+      position: absolute;
+      inset: 50% 0 auto;
+      height: 1px;
+      background: #e5e7eb;
+    }
+
+    .divider span {
+      position: relative;
+      background: #fff;
+      padding: 0 14px;
+      font-size: 11px;
+      color: #9ca3af;
+      text-transform: uppercase;
+      letter-spacing: .8px;
+    }
+
+    /* Social buttons */
+    .social-btns {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    .social-btn {
+      width: 48px;
+      height: 48px;
+      border: 1px solid #e5e7eb;
+      border-radius: 50%;
+      background: #fff;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background .2s, transform .15s;
+    }
+
+    .social-btn:hover { background: #f9fafb; }
+    .social-btn:active { transform: scale(.92); }
+    .social-btn svg { width: 24px; height: 24px; }
+
+    /* Privacy text */
+    .privacy-text {
+      font-size: 10px;
+      color: #9ca3af;
+      text-align: center;
+      line-height: 1.6;
+    }
+
+    .privacy-text a { color: #2563eb; font-weight: 500; }
+
+    /* Login link */
+    .login-link {
+      text-align: center;
+      font-size: 14px;
+      color: #6b7280;
+    }
+
+    .login-link a { color: #2563eb; font-weight: 600; margin-left: 4px; }
+  </style>
+</head>
+<body>
+
+  <!-- Browser bar -->
+  <div class="browser-bar">
+    <div class="browser-actions">
+      <button>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M18 6L6 18M6 6l12 12"/>
+        </svg>
+      </button>
+      <button>
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 7a1 1 0 100 2 1 1 0 000-2zm0 4a1 1 0 100 2 1 1 0 000-2zm0 4a1 1 0 100 2 1 1 0 000-2z"/></svg>
+      </button>
+    </div>
+
+    <div class="browser-url">
+      <div class="url-dot"></div>
+      <span class="url-text">my.norton.com</span>
+    </div>
+
+    <div class="browser-actions">
+      <button>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/>
+          <path d="M8.59 13.51l6.83 3.98M15.41 6.51l-6.82 3.98"/>
+        </svg>
+      </button>
+      <button>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Content -->
+  <div class="content">
+
+    <!-- Logo -->
+    <div class="logo">
+      <svg class="logo-icon" viewBox="0 0 24 24">
+        <circle cx="12" cy="12" r="10" fill="none" stroke="#111" stroke-width="1.5"/>
+        <path d="M7 12l3.5 3.5L17 8" fill="none" stroke="#eab308" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span class="logo-text">norton</span>
+    </div>
+
+    <!-- Form card -->
+    <div class="form-card">
+      <h1>Buat Akun</h1>
+
+      <form id="signup-form" novalidate>
+
+        <div class="field" id="field-email">
+          <label for="email">Alamat email *</label>
+          <div class="field-row">
+            <input type="email" id="email" name="email" autocomplete="email" />
+          </div>
+          <div class="field-error">Masukkan alamat email yang valid.</div>
+        </div>
+
+        <div class="field" id="field-confirm-email">
+          <label for="confirm-email">Konfirmasi alamat email *</label>
+          <div class="field-row">
+            <input type="email" id="confirm-email" name="confirm-email" autocomplete="email" />
+          </div>
+          <div class="field-error" id="confirm-email-error">Email tidak cocok.</div>
+        </div>
+
+        <div class="field" id="field-password">
+          <label for="password">Buat kata sandi aman *</label>
+          <div class="field-row">
+            <input type="password" id="password" name="password" autocomplete="new-password" />
+            <button type="button" class="eye-btn" id="eye-btn">
+              <svg id="eye-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                <circle cx="12" cy="12" r="3"/>
+              </svg>
+            </button>
+          </div>
+          <div class="field-error">Kata sandi minimal 8 karakter.</div>
+        </div>
+
+        <div class="field">
+          <label for="region">Wilayah</label>
+          <div class="select-wrap">
+            <select id="region" name="region">
+              <option value="id">Indonesia</option>
+              <option value="us">United States</option>
+              <option value="au">Australia</option>
+            </select>
+            <span class="select-arrow">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M6 9l6 6 6-6"/>
+              </svg>
+            </span>
+          </div>
+        </div>
+
+        <button type="submit" class="submit-btn" id="submit-btn">Buat Akun</button>
+      </form>
+
+      <!-- Divider -->
+      <div class="divider"><span>atau lanjutkan dengan</span></div>
+
+      <!-- Social -->
+      <div class="social-btns">
+        <!-- Google -->
+        <button class="social-btn">
+          <svg viewBox="0 0 24 24">
+            <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+            <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+            <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/>
+            <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+          </svg>
+        </button>
+        <!-- Apple -->
+        <button class="social-btn">
+          <svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22">
+            <path d="M17.05 20.28c-.96.95-2.44 1.78-4.14 1.78-2.3 0-3.3-1.5-5.33-1.5-2.06 0-3.28 1.47-5.32 1.47-1.43 0-2.83-.75-3.74-2.08-1.7-2.46-1.55-7.1.33-9.52.88-1.12 2.15-1.85 3.52-1.85 1.4 0 2.3.9 3.4.9 1.06 0 2.33-.9 3.6-.9 1.15 0 2.45.6 3.3 1.5-2.72 1.62-2.23 5.56.55 6.94-.6 1.46-1.54 2.86-2.27 3.26zM12.03 5.43c-.02-2.13 1.76-3.9 3.7-4.03.2 2.37-2.14 4.14-3.7 4.03z"/>
+          </svg>
+        </button>
+        <!-- Microsoft -->
+        <button class="social-btn">
+          <svg viewBox="0 0 23 23" width="22" height="22">
+            <path d="M0 0h23v23H0z" fill="#f3f3f3"/>
+            <path d="M1 1h10v10H1z" fill="#f35325"/>
+            <path d="M12 1h10v10H12z" fill="#81bc06"/>
+            <path d="M1 12h10v10H1z" fill="#05a6f0"/>
+            <path d="M12 12h10v10H12z" fill="#ffba08"/>
+          </svg>
+        </button>
+      </div>
+
+      <p class="privacy-text">
+        Dengan mengklik Buat Akun, Anda telah membaca dan mengonfirmasi
+        <a href="#">Pernyataan Privasi Global</a> kami.
+      </p>
+    </div>
+
+    <p class="login-link">
+      Bukan pengguna baru?
+      <a href="#">Masuk</a>
+    </p>
+  </div>
+
+  <script>
+    const emailInput   = document.getElementById('email');
+    const confirmInput = document.getElementById('confirm-email');
+    const passwordInput = document.getElementById('password');
+    const submitBtn    = document.getElementById('submit-btn');
+    const eyeBtn       = document.getElementById('eye-btn');
+    const form         = document.getElementById('signup-form');
+
+    // Toggle password visibility
+    eyeBtn.addEventListener('click', () => {
+      const isText = passwordInput.type === 'text';
+      passwordInput.type = isText ? 'password' : 'text';
+    });
+
+    // Enable / disable submit based on inputs
+    function checkFormReady() {
+      const e  = emailInput.value.trim();
+      const ce = confirmInput.value.trim();
+      const p  = passwordInput.value;
+      const ready = e.length > 0 && ce.length > 0 && p.length > 0;
+      submitBtn.classList.toggle('enabled', ready);
+    }
+
+    [emailInput, confirmInput, passwordInput].forEach(el => {
+      el.addEventListener('input', checkFormReady);
+    });
+
+    // Validate & submit
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      let valid = true;
+
+      const emailVal   = emailInput.value.trim();
+      const confirmVal = confirmInput.value.trim();
+      const passVal    = passwordInput.value;
+      const emailRe    = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+      // Email
+      const fieldEmail = document.getElementById('field-email');
+      if (!emailRe.test(emailVal)) {
+        fieldEmail.classList.add('has-error');
+        valid = false;
+      } else {
+        fieldEmail.classList.remove('has-error');
+      }
+
+      // Confirm email
+      const fieldConfirm = document.getElementById('field-confirm-email');
+      const confirmErr   = document.getElementById('confirm-email-error');
+      if (!emailRe.test(confirmVal)) {
+        confirmErr.textContent = 'Masukkan email yang valid.';
+        fieldConfirm.classList.add('has-error');
+        valid = false;
+      } else if (emailVal !== confirmVal) {
+        confirmErr.textContent = 'Email tidak cocok.';
+        fieldConfirm.classList.add('has-error');
+        valid = false;
+      } else {
+        fieldConfirm.classList.remove('has-error');
+      }
+
+      // Password
+      const fieldPass = document.getElementById('field-password');
+      if (passVal.length < 8) {
+        fieldPass.classList.add('has-error');
+        valid = false;
+      } else {
+        fieldPass.classList.remove('has-error');
+      }
+
+      if (valid) {
+        window.parent.postMessage({ action: 'create-account' }, '*');
+      }
+    });
+  </script>
+</body>
+</html>

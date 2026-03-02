@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Norton – Dashboard</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      background: #fff;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      -webkit-tap-highlight-color: transparent;
+      color: #333;
+    }
+
+    /* Browser bar */
+    .browser-bar {
+      background: #fff;
+      border-bottom: 1px solid #f1f5f9;
+      padding: 10px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-shrink: 0;
+    }
+
+    .bar-actions { display: flex; gap: 16px; }
+
+    .bar-actions button {
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: #6b7280;
+      display: flex;
+      align-items: center;
+    }
+
+    .bar-actions svg { width: 20px; height: 20px; }
+
+    .bar-url {
+      display: flex;
+      align-items: center;
+      background: #f9fafb;
+      border-radius: 20px;
+      padding: 5px 12px;
+      gap: 6px;
+      flex: 1;
+      margin: 0 10px;
+    }
+
+    .bar-url svg { width: 12px; height: 12px; color: #9ca3af; flex-shrink: 0; }
+    .bar-url span { font-size: 12px; color: #6b7280; }
+
+    /* Main */
+    main {
+      flex: 1;
+      overflow-y: auto;
+      padding: 16px 16px 90px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    /* Card base */
+    .card {
+      background: #fff;
+      border: 1px solid #f1f5f9;
+      border-radius: 20px;
+      padding: 20px;
+      box-shadow: 0 1px 4px rgba(0,0,0,.05);
+      animation: cardIn .45s cubic-bezier(.22,1,.36,1) both;
+    }
+
+    .card:nth-child(1) { animation-delay: .0s; }
+    .card:nth-child(2) { animation-delay: .07s; }
+    .card:nth-child(3) { animation-delay: .14s; }
+
+    @keyframes cardIn {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Welcome card */
+    .welcome-name {
+      font-size: 22px;
+      font-weight: 700;
+      color: #111827;
+      margin-bottom: 4px;
+    }
+
+    .welcome-email {
+      font-size: 13px;
+      color: #6b7280;
+      margin-bottom: 14px;
+    }
+
+    .edit-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      color: #2563eb;
+      font-size: 13px;
+      font-weight: 500;
+      text-decoration: none;
+    }
+
+    .edit-link svg { width: 15px; height: 15px; }
+
+    /* Help card */
+    .card-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: #111827;
+      margin-bottom: 14px;
+    }
+
+    .help-list { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+
+    .help-item a {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 13px;
+      font-weight: 500;
+      color: #2563eb;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+
+    .help-item a span { font-size: 14px; }
+
+    /* Product card */
+    .product-section-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: #111827;
+      padding: 0 4px;
+    }
+
+    .product-subtitle {
+      font-size: 10px;
+      font-weight: 700;
+      color: #9ca3af;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 0 4px;
+    }
+
+    .product-card {
+      background: #fafaf9;
+      border: 1px solid #e5e7eb;
+      border-radius: 18px;
+      padding: 18px;
+    }
+
+    .product-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .product-icon {
+      background: #ffc400;
+      border-radius: 10px;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .product-icon svg { width: 22px; height: 22px; color: #000; }
+
+    .product-info h3 {
+      font-size: 17px;
+      font-weight: 700;
+      color: #111827;
+      margin-bottom: 4px;
+    }
+
+    .device-line {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 2px;
+    }
+
+    .device-icons { display: flex; gap: 3px; }
+    .device-icons svg { width: 13px; height: 13px; color: #9ca3af; }
+
+    .avail-text { font-size: 11px; color: #9ca3af; }
+
+    .installed-text {
+      font-size: 11px;
+      color: #6b7280;
+    }
+
+    .installed-text strong { color: #374151; }
+
+    .install-link {
+      display: inline-block;
+      font-size: 11px;
+      color: #2563eb;
+      font-weight: 500;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+      margin-top: 4px;
+    }
+
+    .download-btn {
+      width: 100%;
+      padding: 10px;
+      border: 2px solid #111827;
+      border-radius: 9999px;
+      background: #fff;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background .2s, color .2s, transform .15s;
+    }
+
+    .download-btn:hover { background: #111827; color: #fff; }
+    .download-btn:active { transform: scale(.97); }
+
+    /* Footer bar */
+    footer {
+      padding: 10px 0 18px;
+      border-top: 1px solid #f1f5f9;
+      display: flex;
+      justify-content: center;
+      background: #fff;
+      flex-shrink: 0;
+    }
+
+    .home-bar {
+      width: 80px;
+      height: 4px;
+      background: #e5e7eb;
+      border-radius: 2px;
+    }
+
+    /* ── Floating back button ──────────────────────────────────── */
+    .fab {
+      position: fixed;
+      bottom: 52px;
+      right: 18px;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: #002d5b;
+      color: #febd11;
+      border: none;
+      border-radius: 9999px;
+      padding: 12px 18px 12px 14px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 6px 20px rgba(0,45,91,.4);
+      transition: transform .2s, box-shadow .2s;
+      animation: fabIn .6s .3s cubic-bezier(.22,1,.36,1) both;
+    }
+
+    @keyframes fabIn {
+      from { opacity: 0; transform: translateY(30px) scale(.85); }
+      to   { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .fab:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 28px rgba(0,45,91,.5);
+    }
+
+    .fab:active { transform: scale(.95); }
+
+    .fab svg { width: 18px; height: 18px; }
+  </style>
+</head>
+<body>
+
+  <!-- Browser bar -->
+  <div class="browser-bar">
+    <div class="bar-actions">
+      <button>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M18 6L6 18M6 6l12 12"/>
+        </svg>
+      </button>
+      <button>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"/>
+        </svg>
+      </button>
+    </div>
+
+    <div class="bar-url">
+      <svg viewBox="0 0 24 24" fill="currentColor">
+        <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"/>
+      </svg>
+      <span>login.norton.com</span>
+    </div>
+
+    <div class="bar-actions">
+      <button>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/>
+          <path d="M8.59 13.51l6.83 3.98M15.41 6.51l-6.82 3.98"/>
+        </svg>
+      </button>
+      <button>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/>
+        </svg>
+      </button>
+      <button>
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 7a1 1 0 100 2 1 1 0 000-2zm0 4a1 1 0 100 2 1 1 0 000-2zm0 4a1 1 0 100 2 1 1 0 000-2z"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <main>
+    <!-- Welcome -->
+    <div class="card">
+      <p class="welcome-name">Welcome, nahja.f</p>
+      <p class="welcome-email">You're signed in as nahja.f@tog.co.id</p>
+      <a class="edit-link" href="#">
+        Edit profile
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M9 18l6-6-6-6"/>
+        </svg>
+      </a>
+    </div>
+
+    <!-- Help -->
+    <div class="card" style="position:relative; overflow:hidden;">
+      <h2 class="card-title">Help and FAQ</h2>
+      <ul class="help-list">
+        <li class="help-item">
+          <a href="#">
+            Install your Norton product from your service provider
+            <span>→</span>
+          </a>
+        </li>
+        <li class="help-item">
+          <a href="#">
+            Activate Norton that was purchased from the service provider
+            <span>→</span>
+          </a>
+        </li>
+      </ul>
+      <!-- Faint logo watermark -->
+      <div style="position:absolute;bottom:8px;right:12px;opacity:.08;pointer-events:none;">
+        <svg width="72" height="72" viewBox="0 0 24 24" fill="#ffc400"><path d="M12 2L4.5 20.29l.71.71L12 18l6.79 3 .71-.71z"/></svg>
+      </div>
+    </div>
+
+    <!-- My Protection -->
+    <p class="product-section-title">My Protection</p>
+    <p class="product-subtitle">Install My Apps</p>
+
+    <div class="product-card">
+      <div class="product-header">
+        <div class="product-icon">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+        </div>
+        <div class="product-info">
+          <h3>Norton 360</h3>
+          <div class="device-line">
+            <span class="avail-text">Available for:</span>
+            <div class="device-icons">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17 1.01L7 1c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-1.99-2-1.99zM17 19H7V5h10v14z"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 18c1.1 0 1.99-.9 1.99-2L22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2H0v2h24v-2h-4zM4 6h16v10H4V6z"/></svg>
+            </div>
+          </div>
+          <p class="installed-text">
+            Installed on <strong>0 device(s)</strong>
+            <span style="display:inline-flex;align-items:center;justify-content:center;width:14px;height:14px;border:1px solid #9ca3af;border-radius:50%;font-size:9px;color:#9ca3af;vertical-align:middle;margin-left:2px;">i</span>
+          </p>
+          <a class="install-link" href="#">Install on Another Device</a>
+        </div>
+      </div>
+
+      <button class="download-btn">Download</button>
+    </div>
+  </main>
+
+  <footer>
+    <div class="home-bar"></div>
+  </footer>
+
+  <!-- Floating back button -->
+  <button class="fab" id="back-btn">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M3 12h18M3 12l7-7M3 12l7 7"/>
+    </svg>
+    Kembali ke Awal
+  </button>
+
+  <script>
+    document.getElementById('back-btn').addEventListener('click', () => {
+      window.parent.postMessage({ action: 'back-to-home' }, '*');
+    });
+  </script>
+</body>
+</html>

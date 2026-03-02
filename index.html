@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Flow Activation v1.0.2</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- Background decoration -->
+  <div class="bg-blobs">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+  </div>
+
+  <!-- Slide panel trigger (kiri) -->
+  <button class="panel-trigger" id="panel-trigger" title="Panduan Penggunaan">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="10"/>
+      <line x1="12" y1="8" x2="12" y2="12"/>
+      <line x1="12" y1="16" x2="12.01" y2="16"/>
+    </svg>
+  </button>
+
+  <!-- Slide panel -->
+  <div class="side-panel" id="side-panel">
+    <div class="panel-header">
+      <div>
+        <div class="panel-title">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#febd11" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+          </svg>
+          Panduan Aktivasi
+        </div>
+        <div class="panel-version">v1.0.2 &nbsp;·&nbsp; build 2026-03-02.001</div>
+      </div>
+      <button class="panel-close" id="panel-close">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M18 6L6 18M6 6l12 12"/>
+        </svg>
+      </button>
+    </div>
+
+    <div class="panel-body">
+
+      <!-- Case 1: Pengguna Baru -->
+      <div class="case-card">
+        <div class="case-badge new">Pengguna Baru</div>
+        <h3 class="case-title">Belum punya akun Norton?</h3>
+        <p class="case-desc">
+          Ikuti alur berikut untuk membuat akun dan mengaktifkan layanan Norton 360 Anda secara gratis selama 30 hari.
+        </p>
+        <ol class="case-steps">
+          <li>
+            <span class="step-num">1</span>
+            <div>
+              <strong>Klik link aktivasi</strong>
+              <p>Buka SMS dari Norton dan klik link aktivasi yang tersedia.</p>
+            </div>
+          </li>
+          <li>
+            <span class="step-num">2</span>
+            <div>
+              <strong>Aktifkan sekarang</strong>
+              <p>Pilih "Aktifkan Sekarang" untuk mulai proses pendaftaran.</p>
+            </div>
+          </li>
+          <li>
+            <span class="step-num">3</span>
+            <div>
+              <strong>Buat akun</strong>
+              <p>Daftarkan email dan buat kata sandi yang kuat. Pastikan email dikonfirmasi dengan benar.</p>
+            </div>
+          </li>
+          <li>
+            <span class="step-num">4</span>
+            <div>
+              <strong>Unduh & pasang aplikasi</strong>
+              <p>Setelah akun dibuat, unduh aplikasi Norton 360 di perangkat Anda melalui dashboard.</p>
+            </div>
+          </li>
+        </ol>
+        <div class="case-tip">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          Setelah selesai, kembali ke SMS dan klik link untuk melihat status aktif.
+        </div>
+      </div>
+
+      <!-- Divider -->
+      <div class="case-divider">
+        <span>atau</span>
+      </div>
+
+      <!-- Case 2: Sudah Aktif / Punya Kode -->
+      <div class="case-card">
+        <div class="case-badge active">Sudah Berlangganan</div>
+        <h3 class="case-title">Punya kode aktivasi atau akun?</h3>
+        <p class="case-desc">
+          Jika Anda sudah memiliki kode redeem atau akun Norton aktif, langsung masuk dan masukkan kode di halaman aktivasi.
+        </p>
+        <ol class="case-steps">
+          <li>
+            <span class="step-num">1</span>
+            <div>
+              <strong>Klik link aktivasi</strong>
+              <p>Buka SMS dari Norton dan klik link yang tersedia.</p>
+            </div>
+          </li>
+          <li>
+            <span class="step-num">2</span>
+            <div>
+              <strong>Masuk ke akun</strong>
+              <p>Pilih "Masuk" menggunakan email dan kata sandi akun Norton Anda yang sudah ada.</p>
+            </div>
+          </li>
+          <li>
+            <span class="step-num">3</span>
+            <div>
+              <strong>Masukkan kode redeem</strong>
+              <p>Di halaman aktivasi Norton, masukkan kode yang Anda terima untuk memperpanjang atau mengaktifkan layanan.</p>
+            </div>
+          </li>
+        </ol>
+        <div class="case-tip active-tip">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          Kode redeem biasanya terdapat di email konfirmasi atau kartu fisik pembelian layanan.
+        </div>
+      </div>
+
+    </div><!-- /panel-body -->
+  </div>
+
+  <!-- Panel backdrop -->
+  <div class="panel-backdrop" id="panel-backdrop"></div>
+
+  <!-- iPhone mockup -->
+  <div class="phone-wrapper">
+    <div class="phone-frame">
+      <!-- Notch -->
+      <div class="phone-notch">
+        <div class="notch-camera"></div>
+        <div class="notch-speaker"></div>
+        <div class="notch-camera"></div>
+      </div>
+
+      <!-- Status bar -->
+      <div class="phone-status-bar">
+        <span class="status-time">9:41</span>
+        <div class="status-icons">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M1.5 8.5a13 13 0 0121 0l-2 2a10 10 0 00-17 0l-2-2z"/><path d="M5.5 12.5a8 8 0 0113 0l-2 2a5 5 0 00-9 0l-2-2z"/><circle cx="12" cy="17" r="1.5"/></svg>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><rect x="2" y="7" width="20" height="10" rx="2"/><rect x="22" y="10" width="2" height="4" rx="1"/><rect x="4" y="9" width="14" height="6" rx="1" fill="white"/></svg>
+        </div>
+      </div>
+
+      <!-- Screen area — iframe loads pages here -->
+      <div class="phone-screen">
+        <iframe
+          id="phone-iframe"
+          src="pages/screen1.html"
+          frameborder="0"
+          scrolling="yes"
+          title="Norton Screen"
+          allow="fullscreen"
+        ></iframe>
+
+        <!-- Transition overlay -->
+        <div class="screen-overlay" id="screen-overlay"></div>
+      </div>
+
+      <!-- Home indicator -->
+      <div class="phone-home-indicator">
+        <div class="home-bar"></div>
+      </div>
+    </div>
+
+    <!-- Side buttons -->
+    <div class="phone-buttons-left">
+      <div class="phone-btn btn-volume-up"></div>
+      <div class="phone-btn btn-volume-down"></div>
+    </div>
+    <div class="phone-buttons-right">
+      <div class="phone-btn btn-power"></div>
+    </div>
+  </div>
+
+  <!-- Step indicator dots -->
+  <div class="step-indicator">
+    <div class="step-dot active" data-step="1" title="SMS Norton"></div>
+    <div class="step-dot" data-step="2" title="Status Keamanan"></div>
+    <div class="step-dot" data-step="3" title="Buat Akun"></div>
+    <div class="step-dot" data-step="4" title="Dashboard"></div>
+    <div class="step-dot" data-step="5" title="Aktif"></div>
+  </div>
+
+  <script src="js/app.js"></script>
+</body>
+</html>

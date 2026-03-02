@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SMS Message - Norton</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#136dec",
+                        "background-light": "#ffffff",
+                        "background-dark": "#101822",
+                        "bubble-grey": "#f2f2f7",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "2xl": "1rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .message-bubble {
+            position: relative;
+        }
+        /* Simple status bar simulation */
+        .status-bar {
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-slate-100 flex justify-center items-start min-h-screen">
+<!-- Mobile Container -->
+<div class="w-full max-w-[430px] h-[932px] bg-background-light dark:bg-background-dark shadow-2xl relative flex flex-col overflow-hidden">
+<!-- Status Bar -->
+<div class="status-bar text-slate-900 dark:text-slate-100">
+<span>9:41</span>
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[18px]">signal_cellular_4_bar</span>
+<span class="material-symbols-outlined text-[18px]">wifi</span>
+<span class="material-symbols-outlined text-[20px]">battery_full</span>
+</div>
+</div>
+<!-- Top Navigation Bar -->
+<header class="flex items-center justify-between px-2 py-1 border-b border-slate-100 dark:border-slate-800 bg-background-light/95 dark:bg-background-dark/95 backdrop-blur-md sticky top-0 z-10">
+<div class="flex items-center">
+<button class="flex items-center text-primary group px-2 py-1">
+<span class="material-symbols-outlined text-[28px]">chevron_left</span>
+<span class="text-[17px] font-normal -ml-1">874</span>
+</button>
+</div>
+<div class="flex flex-col items-center flex-1">
+<div class="size-8 bg-slate-200 dark:bg-slate-700 rounded-full flex items-center justify-center mb-0.5 overflow-hidden">
+<span class="material-symbols-outlined text-slate-500 dark:text-slate-400 text-[24px] translate-y-1">person</span>
+</div>
+<button class="flex items-center gap-0.5 group">
+<span class="text-[11px] font-semibold text-slate-900 dark:text-slate-100 uppercase tracking-tight">Norton</span>
+<span class="material-symbols-outlined text-[14px] text-slate-400">chevron_right</span>
+</button>
+</div>
+<div class="w-16 flex justify-end px-2">
+<!-- Empty for balance or info icon if needed -->
+</div>
+</header>
+<!-- Message List Area -->
+<main class="flex-1 overflow-y-auto p-4 space-y-4">
+<!-- Date Separator -->
+<div class="text-center">
+<span class="text-[11px] font-semibold text-slate-400 uppercase tracking-widest">Yesterday 11:37 AM</span>
+</div>
+<!-- Message Bubble Container -->
+<div class="flex items-start gap-2 max-w-[85%]">
+<div class="message-bubble bg-bubble-grey dark:bg-slate-800 rounded-2xl px-4 py-3">
+<p class="text-[15px] leading-[1.4] text-slate-900 dark:text-slate-100">
+                        Aktifkan layanan dan cek masa berlaku Anda di 
+                        <span class="text-primary underline break-all">https://norton.tog.co.id/v1?code=dbWBGNt</span>
+<br/><br/>
+                        Petunjuk aktivasi: 
+                        <span class="text-primary underline break-all">https://norton.tog.co.id/support/en/activate</span>
+<br/><br/>
+                        Anda berhasil mendapatkan layanan Norton 360 selama 30 hari. Layanan Norton 360 berlaku s/d 2026-03-22 pkl. 11:37.
+                        <br/><br/>
+                        CS: <span class="text-primary">02174778891</span>
+</p>
+</div>
+</div>
+</main>
+<!-- Bottom Compose Bar -->
+<footer class="p-2 pb-8 bg-background-light dark:bg-background-dark border-t border-slate-100 dark:border-slate-800">
+<div class="flex items-center gap-2 px-1">
+<!-- Add Icon -->
+<button class="flex items-center justify-center p-1">
+<span class="material-symbols-outlined text-primary text-[28px]">add_circle</span>
+</button>
+<!-- Camera/Photos Icons (Optional but common in SMS UI) -->
+<button class="flex items-center justify-center p-1">
+<span class="material-symbols-outlined text-slate-400 text-[28px]">camera_alt</span>
+</button>
+<!-- Input Field Container -->
+<div class="flex-1 relative flex items-center">
+<input class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-full py-1.5 pl-4 pr-10 text-[15px] focus:ring-1 focus:ring-primary focus:border-primary placeholder:text-slate-400" placeholder="Text Message • SMS" type="text"/>
+<!-- Microphone Icon inside input or next to it -->
+<button class="absolute right-2 flex items-center justify-center text-slate-400">
+<span class="material-symbols-outlined text-[20px]">mic</span>
+</button>
+</div>
+<!-- If there was text, this would be a Send button, but typically shows microphone or apps icon -->
+<button class="flex items-center justify-center p-1">
+<span class="material-symbols-outlined text-primary text-[28px]">apps</span>
+</button>
+</div>
+</footer>
+<!-- Home Indicator -->
+<div class="absolute bottom-2 left-1/2 -translate-x-1/2 w-32 h-1.5 bg-slate-300 dark:bg-slate-700 rounded-full"></div>
+</div>
+</body></html>
