@@ -7,16 +7,28 @@ const iframe  = document.getElementById('phone-iframe');
 const overlay = document.getElementById('screen-overlay');
 const dots    = document.querySelectorAll('.step-dot');
 
+// Schema support: Different screen variants for Schema 1 and Schema 2
 const SCREENS = {
-  1: 'pages/screen1.html',
-  2: 'pages/screen2.html',
-  3: 'pages/screen3.html',
-  4: 'pages/screen4.html',
-  5: 'pages/screen5.html',
-  6: 'pages/screen6.html',
+  schema1: {
+    1: 'pages/screen1.html',
+    2: 'pages/screen2.html',
+    3: 'pages/screen3.html',
+    4: 'pages/screen4.html',
+    5: 'pages/screen5.html',
+    6: 'pages/screen6.html',
+  },
+  schema2: {
+    1: 'pages/screen1.html',
+    2: 'pages/screen2-alt.html', // Alternative design for Schema 2
+    3: 'pages/screen3.html',
+    4: 'pages/screen4.html',
+    5: 'pages/screen5-alt.html', // Alternative login page for Schema 2
+    6: 'pages/screen6.html',
+  }
 };
 
 let currentScreen = 1;
+let currentSchema = 'schema1';
 let alreadyActivated = false;
 
 /* ── Navigate to a screen with a smooth fade ─────────────────── */
@@ -25,7 +37,16 @@ function goTo(screenNum, params = {}) {
 
   // Build query string
   const query = new URLSearchParams(params).toString();
-  const src   = SCREENS[screenNum] + (query ? '?' + query : '');
+
+  // Determine which screen file to load
+  let screenFile = SCREENS[currentSchema][screenNum];
+
+  // Special case: Schema 2, Screen 2, Already Activated
+  if (currentSchema === 'schema2' && screenNum === 2 && alreadyActivated) {
+    screenFile = 'pages/screen2-alt-activated.html';
+  }
+
+  const src = screenFile + (query ? '?' + query : '');
 
   // Fade overlay in
   overlay.classList.add('flash-in');
@@ -59,7 +80,13 @@ window.addEventListener('message', (e) => {
     // Screen 1: link clicked
     case 'link-clicked':
       if (alreadyActivated) {
-        goTo(5);
+        // If already activated, go to login page (screen 5)
+        // But for schema2, we show screen2-alt-activated instead
+        if (currentSchema === 'schema2') {
+          goTo(2);
+        } else {
+          goTo(5);
+        }
       } else {
         goTo(2);
       }
@@ -140,5 +167,41 @@ dots.forEach(dot => {
     } else {
       goTo(n, { force: true });
     }
+  });
+});
+
+/* ── Schema tab switching ─────────────────────────────────────── */
+const schemaTabs = document.querySelectorAll('.schema-tab');
+
+schemaTabs.forEach(tab => {
+  tab.addEventListener('click', () => {
+    const schema = tab.dataset.schema;
+    const newSchema = `schema${schema}`;
+
+    // Only switch if it's a different schema
+    if (newSchema === currentSchema) return;
+
+    // Update active tab
+    schemaTabs.forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+
+    // Update current schema
+    currentSchema = newSchema;
+
+    // RESET STATE: Supaya tidak campur-campur
+    alreadyActivated = false;
+    currentScreen = 1;
+
+    // REFRESH KE AWAL: Selalu mulai dari screen 1 fresh
+    overlay.classList.add('flash-in');
+
+    setTimeout(() => {
+      iframe.src = SCREENS[currentSchema][1];
+      updateDots(1);
+
+      setTimeout(() => {
+        overlay.classList.remove('flash-in');
+      }, 300);
+    }, 250);
   });
 });
