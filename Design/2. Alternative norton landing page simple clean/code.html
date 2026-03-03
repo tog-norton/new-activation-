@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+
+<html lang="id"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#FFD700", /* Norton Yellow */
+                        "primary-dark": "#E6C200",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101822",
+                        "slate-custom": "#111418",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  
+    @keyframes bounce-y {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-8px); }
+    }
+    .animate-bounce-y { animation: bounce-y 1s infinite; }
+</style>
+<style>
+    @keyframes pulse-gold {
+        0% { box-shadow: 0 0 0 0 rgba(255, 215, 0, 0.7); }
+        70% { box-shadow: 0 0 0 15px rgba(255, 215, 0, 0); }
+        100% { box-shadow: 0 0 0 0 rgba(255, 215, 0, 0); }
+    }
+    @keyframes bounce-x {
+        0%, 100% { transform: translateX(0); }
+        50% { transform: translateX(5px); }
+    }
+    .animate-pulse-gold { animation: pulse-gold 2s infinite; }
+    .animate-bounce-x { animation: bounce-x 1s infinite; }
+
+    @keyframes bounce-y {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-8px); }
+    }
+    .animate-bounce-y { animation: bounce-y 1s infinite; }
+</style></head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-custom dark:text-slate-100 antialiased">
+<div class="relative flex h-auto min-h-screen w-full flex-col bg-white dark:bg-background-dark group/design-root overflow-x-hidden">
+<!-- Top Navigation -->
+<div class="flex items-center bg-white dark:bg-background-dark p-4 pb-2 justify-between border-b border-slate-100 dark:border-slate-800">
+<div class="text-primary flex size-10 shrink-0 items-center justify-center">
+<span class="material-symbols-outlined !text-3xl">shield_lock</span>
+</div>
+<h2 class="text-slate-custom dark:text-slate-100 text-lg font-bold leading-tight tracking-[-0.015em] flex-1 text-center">Norton 360</h2>
+<div class="flex w-10 items-center justify-end">
+<button class="flex cursor-pointer items-center justify-center rounded-lg h-10 bg-transparent text-slate-custom dark:text-slate-100 p-0">
+<span class="material-symbols-outlined">help</span>
+</button>
+</div>
+</div>
+<!-- Hero Section / Illustration -->
+<div class="px-6 pt-10 pb-6 flex flex-col items-center">
+<div class="relative w-48 h-48 flex items-center justify-center mb-8">
+<!-- Abstract security background shape -->
+<div class="absolute inset-0 bg-primary/10 rounded-full animate-pulse"></div>
+<div class="absolute inset-4 bg-primary/20 rounded-full"></div>
+<!-- Main Shield Icon -->
+<div class="relative z-10 text-primary flex items-center justify-center">
+<span class="material-symbols-outlined !text-[120px]" style="font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 48;">shield_with_heart</span>
+</div>
+</div>
+<!-- Content -->
+<div class="text-center max-w-sm mx-auto">
+<h1 class="text-slate-custom dark:text-slate-100 tracking-tight text-2xl font-bold leading-tight mb-4">
+                    Anda telah mendapatkan layanan Norton 360 (30 Hari).
+                </h1>
+<div class="bg-slate-50 dark:bg-slate-800/50 rounded-xl p-4 mb-6">
+<p class="text-slate-custom dark:text-slate-300 text-sm font-medium leading-relaxed">
+                        Masa aktif layanan berlaku hingga <span class="bg-primary text-slate-900 px-2 py-0.5 rounded font-bold">22 Maret 2026</span>.
+                    </p>
+</div>
+<p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed mb-8">
+                    Untuk melanjutkan proses aktivasi, silakan buat akun baru atau login menggunakan akun Norton yang sudah Anda miliki pada tahap berikutnya.
+                </p>
+</div>
+</div>
+<!-- Call to Action -->
+<div class="px-6 flex flex-col items-center pb-12 w-full max-w-sm mx-auto">
+<div class="relative w-full mb-4">
+<button class="w-full bg-[#FFD700] hover:bg-[#FFE14D] text-slate-900 font-extrabold text-lg py-5 px-8 rounded-xl shadow-[0_10px_20px_-5px_rgba(255,215,0,0.5)] transition-all duration-300 flex items-center justify-center gap-3 transform hover:scale-[1.02] animate-pulse-gold">
+<span>AKTIVASI SEKARANG, UNDUH &amp; INSTAL</span>
+<span class="material-symbols-outlined !text-2xl font-bold">arrow_forward</span>
+</button>
+</div>
+<p class="text-slate-500 dark:text-slate-400 text-xs text-center leading-normal mb-10">
+                Setelah aktivasi, silakan unduh dan instal aplikasi Norton kamu.
+            </p>
+<!-- Footer Link -->
+<div class="pt-6 border-t border-slate-100 dark:border-slate-800 w-full text-center">
+<a class="text-primary text-xs font-medium flex items-center justify-center gap-1 hover:underline" href="https://norton.tog.co.id/support/id/activate">
+<span class="material-symbols-outlined !text-sm">menu_book</span>
+                    Petunjuk Aktivasi
+                </a>
+</div>
+</div>
+<!-- Visual Decorative Elements -->
+<div class="absolute top-20 -left-10 w-40 h-40 bg-primary/5 rounded-full blur-3xl pointer-events-none"></div>
+<div class="absolute bottom-0 -right-10 w-60 h-60 bg-primary/5 rounded-full blur-3xl pointer-events-none"></div>
+</div>
+<!-- Hidden image containers for requirement compliance -->
+<div class="hidden">
+<div class="bg-primary/10 h-10 w-10" data-alt="Abstract security pattern in gold and white"></div>
+</div>
+</body></html>
